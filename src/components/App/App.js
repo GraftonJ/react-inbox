@@ -71,12 +71,25 @@ class App extends Component {
           ]
        }
      }
+
+     onStar = id => {
+       this.setState({
+         ...this.state,
+         messages: this.state.messages.map((message) => {
+           if(message.id === id) {
+             message.starred = !message.starred
+           }
+           return message
+         })
+       })
+     }
+
   render() {
     return (
       <div className="App">
         <h1>Gmail</h1>
         <Toolbar />
-        <MessageList messages={this.state.messages}/>
+        <MessageList messages={this.state.messages} onStar={this.onStar}/>
         <ComposeForm />
       </div>
     );

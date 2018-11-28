@@ -6,7 +6,7 @@ export default class MessageList extends React.Component {
     return (
       <div>
       {this.props.messages.map((message, idx) =>
-      (<Message key={idx} message={message} />))}
+      (<Message key={idx} message={message} onStar={this.props.onStar} />))}
       </div>
     )
   }
