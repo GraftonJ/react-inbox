@@ -140,6 +140,7 @@ class App extends Component {
       messages: this.state.messages.map(message => {
         if(message.selected && !message.labels.includes(label)) {
           message.labels.push(label)
+          message.labels.sort()
           }
           return message
         })

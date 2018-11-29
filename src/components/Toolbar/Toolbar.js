@@ -3,8 +3,10 @@ import React from 'react'
 export default class Toolbar extends React.Component {
 
   addLabelToSelected = (ev) => {
+      if(ev.target.value !== "Apply label") {
         let label = ev.target.value
         this.props.addLabel(label)
+      }
     }
 
   render() {
