@@ -16,7 +16,7 @@ const Message = ({ message, onStar, checked, onSelect }) => (
       {message.labels.map((label, idx) => (
         <span key={idx} className="label label-warning">{label}</span>
       ))}
-      <a href="#">
+      <a href="/">
         {message.subject}
       </a>
     </div>
