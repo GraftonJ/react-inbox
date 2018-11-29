@@ -89,7 +89,9 @@ class App extends Component {
          ...this.state,
          messages: this.state.messages.map((message) => {
            if(message.id === id) {
-             message.read = !message.read
+             if(message.read === false) {
+               message.read = true
+             }
            }
            return message
          })
@@ -112,7 +114,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Gmail</h1>
-        <Toolbar />
+        <Toolbar messages={this.state.messages}/>
         <MessageList messages={this.state.messages} onStar={this.onStar} onSelect={this.onSelect} onRead={this.onRead}/>
         <ComposeForm />
       </div>
