@@ -98,6 +98,18 @@ class App extends Component {
        })
      }
 
+     markRead = selected => {
+       this.setState({
+         ...this.state,
+         messages: this.state.messages.map((message) => {
+           if(message.selected) {
+               message.read = true
+           }
+           return message
+         })
+       })
+     }
+
     onSelect = id => {
       this.setState({
         ...this.state,
@@ -110,11 +122,13 @@ class App extends Component {
       })
     }
 
+
+
   render() {
     return (
       <div className="App">
         <h1>Gmail</h1>
-        <Toolbar messages={this.state.messages}/>
+        <Toolbar messages={this.state.messages} markRead={this.markRead}/>
         <MessageList messages={this.state.messages} onStar={this.onStar} onSelect={this.onSelect} onRead={this.onRead}/>
         <ComposeForm />
       </div>
