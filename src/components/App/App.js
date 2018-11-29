@@ -147,13 +147,26 @@ class App extends Component {
       })
     }
 
+    removeLabel = label => {
+      this.setState({
+      ...this.state,
+      messages: this.state.messages.map(message => {
+        if(message.selected && message.labels.includes(label)) {
+          message.labels.pop(label)
+          message.labels.sort()
+          }
+          return message
+        })
+      })
+    }
+
 
 
   render() {
     return (
       <div className="App container">
         <h1>Gmail</h1>
-        <Toolbar messages={this.state.messages} markRead={this.markRead} markUnread={this.markUnread} addLabel={this.addLabel}/>
+        <Toolbar messages={this.state.messages} markRead={this.markRead} markUnread={this.markUnread} addLabel={this.addLabel} removeLabel={this.removeLabel}/>
         <MessageList messages={this.state.messages} onStar={this.onStar} onSelect={this.onSelect} onRead={this.onRead}/>
         <ComposeForm />
       </div>

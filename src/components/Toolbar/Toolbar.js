@@ -6,6 +6,15 @@ export default class Toolbar extends React.Component {
       if(ev.target.value !== "Apply label") {
         let label = ev.target.value
         this.props.addLabel(label)
+        ev.target.value = "Apply label"
+      }
+    }
+
+  removeLabelFromSelected = (ev) => {
+      if(ev.target.value !== "Apply label") {
+        let label = ev.target.value
+        this.props.removeLabel(label)
+        ev.target.value = "Remove label"
       }
     }
 
@@ -37,7 +46,7 @@ export default class Toolbar extends React.Component {
             <option value="gschool">gschool</option>
           </select>
 
-          <select className="form-control label-select">
+          <select className="form-control label-select" onChange={this.removeLabelFromSelected}>
             <option>Remove label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>
