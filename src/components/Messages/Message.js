@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Message = ({ message, onStar, checked, onSelect }) => (
+const Message = ({ message, onStar, checked, onSelect, onRead }) => (
   <div className={`row message ${ message.read ? 'read' : 'unread' } ${ message.selected ? "selected" : "" }` }>
     <div className="col-xs-1">
       <div className="row">
@@ -16,7 +16,7 @@ const Message = ({ message, onStar, checked, onSelect }) => (
       {message.labels.map((label, idx) => (
         <span key={idx} className="label label-warning">{label}</span>
       ))}
-      <a href="/">
+      <a href="#" onClick={ () => {onRead(message.id)}}>
         {message.subject}
       </a>
     </div>
