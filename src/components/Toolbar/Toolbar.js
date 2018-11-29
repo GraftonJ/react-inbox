@@ -20,7 +20,7 @@ export default class Toolbar extends React.Component {
 
           <button className="btn btn-default" onClick={() => {this.props.markRead(this.props.messages.selected)}} >Mark As Read</button>
 
-          <button className="btn btn-default">Mark As Unread</button>
+          <button className="btn btn-default" onClick={() => {this.props.markUnread(this.props.messages.selected)}}>Mark As Unread</button>
 
           <select className="form-control label-select">
             <option>Apply label</option>
