@@ -1,6 +1,12 @@
 import React from 'react'
 
 export default class Toolbar extends React.Component {
+
+  addLabelToSelected = (ev) => {
+        let label = ev.target.value
+        this.props.addLabel(label)
+    }
+
   render() {
     return (
       <div className="row toolbar">
@@ -22,7 +28,7 @@ export default class Toolbar extends React.Component {
 
           <button className="btn btn-default" onClick={() => {this.props.markUnread(this.props.messages.selected)}}>Mark As Unread</button>
 
-          <select className="form-control label-select">
+          <select className="form-control label-select" onChange={this.addLabelToSelected}>
             <option>Apply label</option>
             <option value="dev">dev</option>
             <option value="personal">personal</option>

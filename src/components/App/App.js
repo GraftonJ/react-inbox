@@ -134,13 +134,25 @@ class App extends Component {
       })
     }
 
+    addLabel = label => {
+      this.setState({
+      ...this.state,
+      messages: this.state.messages.map(message => {
+        if(message.selected && !message.labels.includes(label)) {
+          message.labels.push(label)
+          }
+          return message
+        })
+      })
+    }
+
 
 
   render() {
     return (
-      <div className="App">
+      <div className="App container">
         <h1>Gmail</h1>
-        <Toolbar messages={this.state.messages} markRead={this.markRead} markUnread={this.markUnread}/>
+        <Toolbar messages={this.state.messages} markRead={this.markRead} markUnread={this.markUnread} addLabel={this.addLabel}/>
         <MessageList messages={this.state.messages} onStar={this.onStar} onSelect={this.onSelect} onRead={this.onRead}/>
         <ComposeForm />
       </div>
