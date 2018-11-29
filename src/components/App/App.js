@@ -84,12 +84,26 @@ class App extends Component {
        })
      }
 
+  onSelect = id => {
+    console.log('OnSelect Function')
+    this.setState({
+      ...this.state,
+      messages: this.state.messages.map(message => {
+        if (message.id === id) {
+          console.log('Matching ID');
+          message.selected ? message.selected = false : message.selected = true
+        }
+        return message
+      })
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Gmail</h1>
         <Toolbar />
-        <MessageList messages={this.state.messages} onStar={this.onStar}/>
+        <MessageList messages={this.state.messages} onSelect={this.onSelect} onStar={this.onStar}/>
         <ComposeForm />
       </div>
     );
