@@ -13,6 +13,9 @@ const Message = ({ message, onStar, checked, onSelect }) => (
       </div>
     </div>
     <div className="col-xs-11">
+      {message.labels.map((label, idx) => (
+        <span key={idx} className="label label-warning">{label}</span>
+      ))}
       <a href="#">
         {message.subject}
       </a>
