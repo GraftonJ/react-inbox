@@ -84,11 +84,11 @@ class App extends Component {
        })
      }
 
-     onSelectAll = id => {
+
+     onSelectAll = selected => {
        this.setState({
          ...this.state,
          messages: this.state.messages.map((message) => {
-           console.log('onSelectAll');
            if(!message.selected) {
              console.log('This messages has not been selected');
              message.selected = true
@@ -180,7 +180,16 @@ class App extends Component {
     return (
       <div className="App container">
         <h1>Gmail</h1>
-        <Toolbar messages={this.state.messages} markRead={this.markRead} markUnread={this.markUnread} addLabel={this.addLabel} removeLabel={this.removeLabel} onSelectAll={this.onSelectAll}/>
+        <Toolbar
+          messages={this.state.messages}
+          markRead={this.markRead}
+          markUnread={this.markUnread}
+          addLabel={this.addLabel}
+          removeLabel={this.removeLabel}
+          onSelectAll={this.onSelectAll}
+          selected={this.state.messages.filter(message => message.selected).length}
+          unselected={this.state.messages.filter(message => !message.selected).length}
+          />
         <MessageList messages={this.state.messages} onStar={this.onStar} onSelect={this.onSelect} onRead={this.onRead}/>
         <ComposeForm />
       </div>
