@@ -31,7 +31,7 @@ export default class Toolbar extends React.Component {
             <i className="fa fa-plus"></i>
           </button>
 
-          <button className="btn btn-default" onClick={ () => {this.props.onSelectAll(this.props.messages.selected)}}>
+          <button className="btn btn-default" onClick={ () => {this.props.onSelectAll(this.props.selected)}}>
             <i className={`fa ${this.props.selected === 0 ? "fa-square-o" : this.props.unselected === 0 ? "fa-check-square-o" : "fa-minus-square-o"}`}></i>
           </button>
 

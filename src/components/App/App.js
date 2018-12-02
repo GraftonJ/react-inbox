@@ -84,20 +84,6 @@ class App extends Component {
        })
      }
 
-
-     onSelectAll = selected => {
-       this.setState({
-         ...this.state,
-         messages: this.state.messages.map((message) => {
-           if(!message.selected) {
-             console.log('This messages has not been selected');
-             message.selected = true
-           }
-           return message
-         })
-       })
-     }
-
      onRead = id => {
        this.setState({
          ...this.state,
@@ -143,6 +129,18 @@ class App extends Component {
           if (message.id === id) {
             message.selected ? message.selected = false : message.selected = true
           }
+          return message
+        })
+      })
+    }
+
+    onSelectAll = selected => {
+      this.setState({
+        ...this.state,
+        messages: this.state.messages.map((message) => {
+          selected < this.state.messages.length
+          ? message.selected = true
+          : message.selected = false
           return message
         })
       })
