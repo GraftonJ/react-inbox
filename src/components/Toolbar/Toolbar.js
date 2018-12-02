@@ -31,8 +31,8 @@ export default class Toolbar extends React.Component {
             <i className="fa fa-plus"></i>
           </button>
 
-          <button className="btn btn-default">
-            <i className="fa fa-square-o" onClick={ () => {this.props.onSelectAll(this.props.messages.selected)}}></i>
+          <button className="btn btn-default" onClick={ () => {this.props.onSelectAll(this.props.messages.selected)}}>
+            <i className="fa fa-square-o" ></i>
           </button>
 
           <button className="btn btn-default" onClick={() => {this.props.markRead(this.props.messages.selected)}} >Mark As Read</button>
