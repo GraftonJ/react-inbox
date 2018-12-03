@@ -260,8 +260,24 @@ class App extends Component {
       })
     }
 
-    onSend = () => {
+    onSend = async (subject, body) => {
+      const res = await fetch(this.API, {
+        method: "POST",
+        body: JSON.stringify({
+          subject,
+          body
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        }
+      })
+      const message = await res.json()
 
+      this.setState({
+        ...this.state,
+        composing: false,
+        messages: [...this.state.messages, message]
+      })
     }
 
   render() {
@@ -283,6 +299,7 @@ class App extends Component {
           />
         <ComposeForm
           compose={this.state.composing}
+          onSend={this.onSend}
         />
         <MessageList
           messages={this.state.messages}

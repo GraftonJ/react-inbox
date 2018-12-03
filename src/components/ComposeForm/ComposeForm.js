@@ -3,7 +3,13 @@ import React from 'react'
 const ComposeForm = ({ compose, onSend }) => (
     !compose
     ? <div></div>
-    : <form className="form-horizontal well">
+    : <form className="form-horizontal well"
+        onSubmit={(e) => {
+          e.preventDefault()
+          console.log(e.target[0].value);
+          onSend(e.target[0].value, e.target[1].value)
+        }}
+      >
         <div className="form-group">
             <div className="col-sm-8 col-sm-offset-2">
                 <h4>Compose Message</h4>
