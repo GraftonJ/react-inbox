@@ -81,6 +81,7 @@ class App extends Component {
      }
 
      markRead = async read => {
+       console.log('Mark Read Function');
        const ids = this.state.messages
       .filter(message => message.selected)
       .map(message => message.id)
@@ -96,19 +97,32 @@ class App extends Component {
           'Accept': 'application/json',
         }
       })
-
        this.setState({
          ...this.state,
          messages: this.state.messages.map((message) => {
-           if(message.selected) {
-               message.read = true
-           }
+           if (message.selected) message.read = true
            return message
          })
        })
      }
 
-     markUnread = selected => {
+     markUnread = async unread => {
+       const ids = this.state.messages
+      .filter(message => message.selected)
+      .map(message => message.id)
+
+      const res = await fetch(this.API, {
+        method: "PATCH",
+        body: JSON.stringify({
+          command: "unread",
+          messageIds: ids
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Accept': 'application/json',
+        }
+      })
+
        this.setState({
          ...this.state,
          messages: this.state.messages.map((message) => {
