@@ -272,7 +272,6 @@ class App extends Component {
         }
       })
       const message = await res.json()
-
       this.setState({
         ...this.state,
         composing: false,
