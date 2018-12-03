@@ -9,6 +9,7 @@ class App extends Component {
        super(props)
        this.apibase = 'http://localhost:8082/api/messages'
        this.state = {
+         composing: false,
          messages: [
             {
               "id": 1,
@@ -172,7 +173,19 @@ class App extends Component {
       })
     }
 
+    onDelete = id => {
+      this.setState({
+        ...this.state,
+        messages: this.state.messages.filter(message => !message.selected)
+      })
+    }
 
+    onCompose = () => {
+      this.setState({
+        ...this.state,
+        composing: !this.state.composing
+      })
+    }
 
   render() {
     return (
@@ -187,9 +200,20 @@ class App extends Component {
           onSelectAll={this.onSelectAll}
           selected={this.state.messages.filter(message => message.selected).length}
           unselected={this.state.messages.filter(message => !message.selected).length}
+          numberUnread={this.state.messages.filter(message => !message.read).length}
+          onDelete={this.onDelete}
+          onCompose={this.onCompose}
           />
-        <MessageList messages={this.state.messages} onStar={this.onStar} onSelect={this.onSelect} onRead={this.onRead}/>
-        <ComposeForm />
+        <ComposeForm
+          compose={this.state.composing}
+        />
+        <MessageList
+          messages={this.state.messages}
+          onStar={this.onStar}
+          onSelect={this.onSelect}
+          onRead={this.onRead}
+        />
+
       </div>
     );
   }
