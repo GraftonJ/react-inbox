@@ -66,7 +66,23 @@ class App extends Component {
        })
      }
 
-     onRead = id => {
+     onRead = async id => {
+       console.log("ONREAD FUNCTION");
+       const ids = this.state.messages
+      .map(message => message.id)
+
+      const res = await fetch(this.API, {
+        method: "PATCH",
+        body: JSON.stringify({
+          command: "read",
+          messageIds: [id],
+          read: true
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Accept': 'application/json',
+        }
+      })
        this.setState({
          ...this.state,
          messages: this.state.messages.map((message) => {
