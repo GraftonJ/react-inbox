@@ -158,7 +158,23 @@ class App extends Component {
       })
     }
 
-    addLabel = label => {
+    addLabel = async label => {
+      const ids = this.state.messages
+      .filter(message => message.selected)
+      .map(message => message.id)
+
+      const res = await fetch(this.API, {
+        method: "PATCH",
+        body: JSON.stringify({
+          command: "addLabel",
+          label,
+          messageIds: ids
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        }
+      })
+
       this.setState({
       ...this.state,
       messages: this.state.messages.map(message => {
@@ -171,7 +187,23 @@ class App extends Component {
       })
     }
 
-    removeLabel = label => {
+    removeLabel = async label => {
+      const ids = this.state.messages
+      .filter(message => message.selected)
+      .map(message => message.id)
+
+      const res = await fetch(this.API, {
+        method: "PATCH",
+        body: JSON.stringify({
+          command: "removeLabel",
+          label,
+          messageIds: ids
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        }
+      })
+
       this.setState({
       ...this.state,
       messages: this.state.messages.map(message => {
