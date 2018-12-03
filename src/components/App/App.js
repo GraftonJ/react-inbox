@@ -10,70 +10,51 @@ class App extends Component {
        this.apibase = 'http://localhost:8082/api/messages'
        this.state = {
          composing: false,
-         messages: [
-            {
-              "id": 1,
-              "subject": "You can't input the protocol without calculating the mobile RSS protocol!",
-              "read": false,
-              "starred": true,
-              "labels": ["dev", "personal"]
-            },
-            {
-              "id": 2,
-              "subject": "connecting the system won't do anything, we need to input the mobile AI panel!",
-              "read": false,
-              "starred": false,
-              "selected": true,
-              "labels": []
-            },
-            {
-              "id": 3,
-              "subject": "Use the 1080p HTTP feed, then you can parse the cross-platform hard drive!",
-              "read": false,
-              "starred": true,
-              "labels": ["dev"]
-            },
-            {
-              "id": 4,
-              "subject": "We need to program the primary TCP hard drive!",
-              "read": true,
-              "starred": false,
-              "selected": true,
-              "labels": []
-            },
-            {
-              "id": 5,
-              "subject": "If we override the interface, we can get to the HTTP feed through the virtual EXE interface!",
-              "read": false,
-              "starred": false,
-              "labels": ["personal"]
-            },
-            {
-              "id": 6,
-              "subject": "We need to back up the wireless GB driver!",
-              "read": true,
-              "starred": true,
-              "labels": []
-            },
-            {
-              "id": 7,
-              "subject": "We need to index the mobile PCI bus!",
-              "read": true,
-              "starred": false,
-              "labels": ["dev", "personal"]
-            },
-            {
-              "id": 8,
-              "subject": "If we connect the sensor, we can get to the HDD port through the redundant IB firewall!",
-              "read": true,
-              "starred": true,
-              "labels": []
-            }
-          ]
+         messages: []
        }
+       this.API = 'http://localhost:8082/api/messages'
      }
 
-     onStar = id => {
+     async componentDidMount() {
+       const res = await fetch(this.API)
+       const messages = await res.json()
+
+       if (!res.ok) {
+         console.log('NOT WORKING');
+        this.setState({
+          ...this.state,
+          errors: [...this.state.errors, messages]
+        })
+        return
+      }
+
+       this.setState({
+         ...this.state,
+         messages
+       })
+     }
+
+     onStar = async id => {
+       const res = await fetch(this.API, {
+         method: "PATCH",
+         body: JSON.stringify({
+           command: "star",
+           messageIds: [id]
+         }),
+         headers: {
+           'Content-Type': 'application/json; charset=utf-8',
+           'Accept': 'application/json',
+         }
+       })
+
+      if (!res.ok) {
+           this.setState({
+             ...this.state,
+             errors: [...this.state.errors, await res.json()]
+             })
+            return
+          }
+
        this.setState({
          ...this.state,
          messages: this.state.messages.map((message) => {
@@ -99,7 +80,23 @@ class App extends Component {
        })
      }
 
-     markRead = selected => {
+     markRead = async read => {
+       const ids = this.state.messages
+      .filter(message => message.selected)
+      .map(message => message.id)
+
+      const res = await fetch(this.API, {
+        method: "PATCH",
+        body: JSON.stringify({
+          command: "read",
+          messageIds: ids
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          'Accept': 'application/json',
+        }
+      })
+
        this.setState({
          ...this.state,
          messages: this.state.messages.map((message) => {
