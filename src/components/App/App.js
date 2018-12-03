@@ -232,7 +232,21 @@ class App extends Component {
       })
     }
 
-    onDelete = id => {
+    onDelete = async () => {
+      const ids = this.state.messages
+      .filter(message => message.selected)
+      .map(message => message.id)
+
+      const res = await fetch(this.API, {
+        method: "PATCH",
+        body: JSON.stringify({
+          command: "delete",
+          messageIds: ids
+        }),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        }
+      })
       this.setState({
         ...this.state,
         messages: this.state.messages.filter(message => !message.selected)
@@ -244,6 +258,10 @@ class App extends Component {
         ...this.state,
         composing: !this.state.composing
       })
+    }
+
+    onSend = () => {
+
     }
 
   render() {
