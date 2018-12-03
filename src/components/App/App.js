@@ -90,7 +90,8 @@ class App extends Component {
         method: "PATCH",
         body: JSON.stringify({
           command: "read",
-          messageIds: ids
+          messageIds: ids,
+          read: true
         }),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +107,8 @@ class App extends Component {
        })
      }
 
-     markUnread = async unread => {
+     markUnread = async read => {
+       console.log('Mark Read Function');
        const ids = this.state.messages
       .filter(message => message.selected)
       .map(message => message.id)
@@ -114,21 +116,19 @@ class App extends Component {
       const res = await fetch(this.API, {
         method: "PATCH",
         body: JSON.stringify({
-          command: "unread",
-          messageIds: ids
+          command: "read",
+          messageIds: ids,
+          read: false
         }),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'Accept': 'application/json',
         }
       })
-
        this.setState({
          ...this.state,
          messages: this.state.messages.map((message) => {
-           if(message.selected) {
-               message.read = false
-           }
+           if (message.selected) message.read = false
            return message
          })
        })
